@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#081c2c" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+  <title>Marés de Auralis — RPG de exploração</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Marés de Auralis início"><span class="brand-mark">✦</span><span>MARÉS <b>DE AURALIS</b><small>CRÔNICAS DO MAR VIVO</small></span></a>
+      <div class="island-label"><span class="live-dot"></span><div><strong>ILHA DO FAROL</strong><small>ARQUIPÉLAGO DE LÚMEN · REGIÃO I</small></div></div>
+      <div class="top-actions"><button class="icon-btn" id="soundBtn" title="Som">♫</button><button class="icon-btn" id="helpBtn" title="Controles">?</button><button class="avatar" title="Explorador">✧</button></div>
+    </header>
+    <section class="game-layout">
+      <aside class="left-rail">
+        <div class="profile-card panel">
+          <div class="profile-head"><div class="portrait">◈</div><div><strong id="playerName">Navegante</strong><span>VIAJANTE DO MAR</span></div><div class="level-badge">Nv. <b id="level">1</b></div></div>
+          <div class="stat-line"><span>VIDA</span><b id="hpText">100 / 100</b></div><div class="bar hp"><i id="hpBar"></i></div>
+          <div class="stat-line"><span>VIGOR</span><b id="energyText">80 / 80</b></div><div class="bar energy"><i id="energyBar"></i></div>
+          <div class="stat-line xp-line"><span>EXPERIÊNCIA</span><b id="xpText">0 / 100</b></div><div class="bar xp"><i id="xpBar"></i></div>
+          <div class="wallet"><span>◉ <b id="coins">120</b> conchas</span><span>◈ <b id="gems">2</b></span></div>
+        </div>
+        <div class="nav-card panel">
+          <div class="section-title">JORNADA <span class="tiny-tag">CAPÍTULO I</span></div>
+          <div class="quest-title" id="questTitle">Um farol apagado</div>
+          <p id="questDesc">Ajude a vila: afaste os saqueadores da maré.</p>
+          <div class="quest-progress"><div class="quest-track"><i id="questBar"></i></div><span id="questCount">0 / 3</span></div>
+          <div class="quest-reward">✦ <b>80 XP</b><span>◉ 45 conchas</span></div>
+          <button class="text-action" id="questBtn">VER DIÁRIO <span>↗</span></button>
+        </div>
+        <div class="quick-nav panel">
+          <button data-panel="map"><span class="nav-icon">⌖</span><span>Mapa do mar</span><kbd>M</kbd></button>
+          <button data-panel="inventory"><span class="nav-icon">▤</span><span>Mochila</span><kbd>I</kbd></button>
+          <button data-panel="skills"><span class="nav-icon">✧</span><span>Poderes</span><kbd>K</kbd></button>
+          <button data-panel="shop"><span class="nav-icon">◇</span><span>Mercado</span><kbd>B</kbd></button>
+        </div>
+        <div class="daily-card panel" id="dailyCard"><div class="daily-icon">☼</div><div><b>Maré diária</b><small id="dailyText">Sua recompensa está pronta</small></div><button id="dailyBtn">COLETAR</button></div>
+      </aside>
+      <section class="world-frame">
+        <div class="world-top"><div class="objective-chip"><span>✦</span><div><small>OBJETIVO ATUAL</small><b id="objective">Encontre os saqueadores</b></div></div><div class="world-tools"><button id="mapToggle" class="world-button">⌖ <span>MAPA</span></button><button id="fullBtn" class="world-button">⛶</button></div></div>
+        <canvas id="world" aria-label="Mundo de jogo Marés de Auralis"></canvas>
+        <div class="world-bottom"><div class="location"><span class="location-symbol">⌖</span><div><b id="locationName">ENSEADA DO FAROL</b><small>Ilha do Farol · Nível recomendado 1–8</small></div></div><div class="compass"><i>✦</i><span>N</span><div class="compass-line"></div></div><div class="world-tip" id="worldTip">WASD mover <i>·</i> Espaço atacar <i>·</i> E interagir</div></div>
+        <div id="toast" class="toast"></div>
+        <div class="interaction" id="interaction"><span> E </span><b>Conversar</b></div>
+        <div class="minimap"><canvas id="mini" width="140" height="100"></canvas><span>FAROL · 01</span></div>
+        <div class="mobile-pad" id="mobilePad"><div class="joystick" id="joystick"><i></i></div><div class="mobile-actions"><button data-action="dodge">↗</button><button data-action="attack" class="attack-action">⚔</button><button data-action="skill">✦</button><button data-action="interact">E</button></div></div>
+        <div class="combat-flash" id="combatFlash"></div>
+      </section>
+      <aside class="right-rail">
+        <div class="party-card panel"><div class="section-title">TRIPULAÇÃO <span class="online-count">● 1</span></div><div class="crew-row"><div class="crew-avatar">✧</div><div><b>Navegante</b><small>Você · Explorador</small></div><span class="crew-level">01</span></div><button id="crewBtn" class="invite-btn">＋ CONVIDAR AMIGO</button></div>
+        <div class="event-card panel"><div class="event-art"><span class="event-weather">☁ MARÉ MISTERIOSA</span><div class="event-moon">◕</div><div class="event-island">⌂</div></div><div class="event-content"><div class="event-meta"><span>EVENTO NO MAR</span><span class="event-live">● ATIVO</span></div><b>Vagalumes da enseada</b><p>As águas brilham ao anoitecer. Siga as luzes até um achado raro.</p><div class="event-timer">◷ Próxima rotação <b id="eventTimer">08:42</b></div></div></div>
+        <div class="discover-card panel"><div class="section-title">DESCOBERTAS <span>01 / 08</span></div><div class="island-progress"><div class="island-dot active">✓</div><div class="island-line"></div><div class="island-dot">02</div><div class="island-line"></div><div class="island-dot">···</div></div><div class="next-island"><div><b>Próxima parada</b><small>Atol das Conchas · Nv. 8</small></div><span>⛵</span></div><button class="voyage-btn" id="voyageBtn">⌁&nbsp; VIAGEM RÁPIDA</button></div>
+        <div class="hint-card"><span>✧</span><p><b>Dica de Auralis</b><br>Desvie no instante certo para evitar golpes e recuperar vigor.</p></div>
+      </aside>
+      <div class="bottom-dock"><div class="dock-label">ATALHOS</div><button class="hotkey" data-key="1"><kbd>1</kbd><span>Golpe leve</span><i>⌁</i></button><button class="hotkey" data-key="2"><kbd>2</kbd><span>Brasa errante</span><i class="fire-icon">✦</i><em>20</em></button><button class="hotkey" data-key="3"><kbd>3</kbd><span>Passo da maré</span><i>⇢</i><em>12</em></button><div class="dock-separator"></div><div class="weapon"><span>⚔</span><div><small>EQUIPADO</small><b>Lâmina de náufrago</b></div><span class="weapon-key">Q</span></div></div>
+    </section>
+  </main>
+  <div class="modal-backdrop" id="modalBackdrop"><section class="modal panel" id="modal"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></section></div>
+  <div class="level-up" id="levelUp"><span>✦</span><div><b>NÍVEL AUMENTOU!</b><small>Seu caminho pelo mar continua.</small></div></div>
+  <script src="game.js"></script>
+</body>
+</html>
